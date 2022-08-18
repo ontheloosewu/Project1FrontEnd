@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kamurocho</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-image: url('landingbackground.jpg');
+            background-size: cover;
+        }
+        #compContainer {
+            display: flex;
+            align-items: center;
+        }
+        #compText {
+            height: 300px;
+            width: 500px;
+            resize: none;
+            font-size: 16px;
+            padding: 10px;
+        }
+        #submitCompBtn {
+            margin: 10px;
+            padding: 10px;
+        }
+        div {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <a href = "meetingspage.html">View All Meetings</a>>
+    <h1>Log Your Complaints Here!</h1>
+    <div id = "compContainer">
+        <textarea id = "compText" type = "text" placeholder = "Enter your complaint here"></textarea>
+        <button id = "submitCompBtn">Submit Your Complaint</button>
+    </div>
+    <div id = "compResult">
+
+    </div>
+</body>
+
+<script>
+    const compText = document.getElementById("compText");
+    const submitCompBtn = document.getElementById("submitCompBtn");
+    const compResult = document.getElementById("compResult");
+
+    submitCompBtn.addEventListener("click", async function(event) {
+        compResult.innerText = "";
+        const compValue = compText.value;
+        if(compValue == ""){
+            compResult.innerText = "Please enter something!";
+            return;
+        }
+
+        const complaint = {id: 0, compText: compValue, priority:"UNREVIEWED", meetingId: -1};
+
+        const response = await fetch("http://localhost:8080/complaints",{
+            method:"POST", 
+            body: JSON.stringify(complaint),
+            headers:{
+                "Content-Type":"application/json"
+            }
+        });
+
+        if(response.status === 201){
+            compResult.innerText = "Successfully logged complaint!";
+        }else{
+            compResult.innerText = "Something went wrong!";
+        }
+
+        compText.value = "";
+    });
+</script>
+</html>

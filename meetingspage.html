@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meetings</title>
+</head>
+<body>
+    <a href = "landingpage.html">Submit a Complaint</a>
+    <table id = "meetingTable">
+        <tr>
+            <th>Location</th>
+            <th>Date</th>
+            <th>Summary</th>
+        </tr>
+
+    </table>
+</body>
+
+<script>
+    const meetingTable = document.getElementById("meetingTable");
+
+    async function getMeetings(){
+        const httpResponse = await fetch("http://localhost:8080/meetings");
+        const meetings = await httpResponse.json();
+        return meetings;
+    }
+
+    async function renderMeetingTable(){
+        const meetings = await getMeetings();
+
+        for (const meeting of meetings){
+            if(meeting.id < 0){
+                continue;
+            }
+            const meetingRow = document.createElement("tr");
+
+            const meetingLocation = document.createElement("td");
+            meetingLocation.innerText = meeting.location;
+
+            const meetingDate = document.createElement("td");
+            meetingDate.innerText = meeting.date;
+
+            const meetingSummary = document.createElement("td");
+            meetingSummary.innerText = meeting.summary;
+
+            meetingRow.appendChild(meetingLocation);
+            meetingRow.appendChild(meetingDate);
+            meetingRow.appendChild(meetingSummary);
+
+            meetingTable.appendChild(meetingRow);
+        }
+    }
+
+    renderMeetingTable();
+
+</script>
+</html>
