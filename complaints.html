@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaints</title>
+</head>
+<body>
+    <a href = "landing.html">Submit a Complaint</a>
+    <a href = "register.html">Register</a>
+    <a href = "login.html">Login</a>
+    <table id = "complaintTable">
+        <tr>
+            <th>Description</th>
+            <th>Priority</th>
+            <th>Assign Priority</th>
+            <th>Assigned to Meeting?</th>
+        </tr>
+
+    </table>
+</body>
+
+<script>
+    const complaintTable = document.getElementById("complaintTable");
+
+    async function getComplaints(){
+        const httpResponse = await fetch("http://localhost:8080/complaints");
+        const complaints = await httpResponse.json();
+        return complaints;
+    }
+
+    async function renderComplaintTable(){
+        const complaints = await getComplaints();
+
+        for (const complaint of complaints){
+            const complaintRow = document.createElement("tr");
+
+            const complaintDesc = document.createElement("td");
+            complaintDesc.innerText = complaint.compText;
+
+            const complaintPrio = document.createElement("td");
+            complaintPrio.innerText = complaint.priority;
+
+            const buttonSet = document.createElement("td");
+            const ignoreBtn = document.createElement("button");
+            ignoreBtn.innerText = "Ignore";
+            const lowBtn = document.createElement("button");
+            lowBtn.innerText = "Low";
+            const highBtn = document.createElement("button");
+            highBtn.innerText = "High";
+            
+            buttonSet.appendChild(ignoreBtn);
+            buttonSet.appendChild(lowBtn);
+            buttonSet.appendChild(highBtn);
+
+            ignoreBtn.addEventListener("click", async function(event) {
+                ignoreBtn.disabled = true;
+                lowBtn.disabled = false;
+                highBtn.disabled = false;
+                complaintPrio.innerText = "IGNORED";
+                complaint.priority = "IGNORED";
+                const response = await fetch(`http://localhost:8080/complaints/${complaint.complaintId}`,{
+                    method:"PUT", 
+                    body: JSON.stringify(complaint),
+                    headers:{
+                        "Content-Type":"application/json"
+                    }
+                });
+            });
+            lowBtn.addEventListener("click", async function(event) {
+                ignoreBtn.disabled = false;
+                lowBtn.disabled = true;
+                highBtn.disabled = false;
+                complaintPrio.innerText = "LOW";
+                complaint.priority = "LOW";
+                const response = await fetch(`http://localhost:8080/complaints/${complaint.complaintId}`,{
+                    method:"PUT", 
+                    body: JSON.stringify(complaint),
+                    headers:{
+                        "Content-Type":"application/json"
+                    }
+                });
+            });
+            highBtn.addEventListener("click", async function(event) {
+                ignoreBtn.disabled = false;
+                lowBtn.disabled = false;
+                highBtn.disabled = true;
+                complaintPrio.innerText = "HIGH";
+                complaint.priority = "HIGH";
+                const response = await fetch(`http://localhost:8080/complaints/${complaint.complaintId}`,{
+                    method:"PUT", 
+                    body: JSON.stringify(complaint),
+                    headers:{
+                        "Content-Type":"application/json"
+                    }
+                });
+            });
+
+            const complaintAssigned = document.createElement("td");
+            complaintAssigned.innerText = complaint.meetingId === -1 ? "No" : "Yes";
+
+            complaintRow.appendChild(complaintDesc);
+            complaintRow.appendChild(complaintPrio);
+            complaintRow.appendChild(buttonSet);
+            complaintRow.appendChild(complaintAssigned);
+
+            complaintTable.appendChild(complaintRow);
+        }
+    }
+
+    renderComplaintTable();
+
+</script>
+</html>
