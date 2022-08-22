@@ -7,6 +7,9 @@
     <title>Register</title>
 </head>
 <body>
+    <a href = "landing.html">Home</a>
+    <a href = "meetings.html">View All Meetings</a>
+    <a href = "login.html">Login</a>
     <h1>Register as a user for additional features!</h1>
     <form>
         <fieldset>
@@ -14,7 +17,7 @@
             <div><label for = "usernameInput">Username</label></div>
             <input id = "usernameInput" pattern=".{8,}" required title = "At least 8 characters" autocomplete="off">
             <div><label for = "passwordInput">Password</label></div>
-            <input id = "passwordInput" pattern=".{5,}" required title = "At least 5 characters" autocomplete="off">
+            <input id = "passwordInput" pattern=".{5,}" type = "password" required title = "At least 5 characters" autocomplete="off">
         </div>
         <div>
             <button>Register</button>
@@ -40,7 +43,7 @@
 
         const resident = {id:0, username:userValue, password:passValue, userType:"REGISTERED"};
 
-        const response = await fetch("http://localhost:8080/residents",{
+        const response = await fetch("http://localhost:8080/register",{
             method:"POST", 
             body: JSON.stringify(resident),
             headers:{
@@ -53,7 +56,7 @@
             usernameInput.value = "";
             passwordInput.value = "";
         }else{
-            regResult.innerText = "Username already exists, please use a different one.";
+            regResult.innerText = "Something went wrong.";
         }
     });
 

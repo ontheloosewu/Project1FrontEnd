@@ -7,6 +7,9 @@
     <title>Login</title>
 </head>
 <body>
+    <a href = "landing.html">Home</a>
+    <a href = "meetings.html">View All Meetings</a>
+    <a href = "register.html">Register</a>
     <h2>Login</h2>
     <form>
         <fieldset>
@@ -45,7 +48,7 @@
         if(httpResponse.status === 200){
             const resident = await httpResponse.json();
             alert("Login successful");
-            window.location = "landingpage.html";
+            //window.location = "landingpage.html";
             //local storage can be used to cache information
             resident.password = null;
             localStorage.setItem("resident", JSON.stringify(resident));
