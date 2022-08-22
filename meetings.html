@@ -33,7 +33,7 @@
         const meetings = await getMeetings();
 
         for (const meeting of meetings){
-            if(meeting.id < 0){
+            if(meeting.meetingId < 0){
                 continue;
             }
             const meetingRow = document.createElement("tr");
@@ -42,7 +42,8 @@
             meetingLocation.innerText = meeting.location;
 
             const meetingDate = document.createElement("td");
-            meetingDate.innerText = meeting.date;
+            const convertedDate = new Date(meeting.date *1000);
+            meetingDate.innerText = convertedDate.toLocaleString();
 
             const meetingSummary = document.createElement("td");
             meetingSummary.innerText = meeting.summary;

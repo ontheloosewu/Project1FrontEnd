@@ -60,7 +60,7 @@
             return;
         }
 
-        const complaint = {id: 0, compText: compValue, priority:"UNREVIEWED", meetingId: -1};
+        const complaint = {complaintId: 0, compText: compValue, priority:"UNREVIEWED", meetingId: -1};
 
         const response = await fetch("http://localhost:8080/complaints",{
             method:"POST", 

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a Meeting</title>
+</head>
+<body>
+    <h1>Create a Meeting!</h1>
+    <div id = "meetContainer">
+        <input id = "meetLocation" type = "text" placeholder = "Enter the meeting place"/>
+        <textarea id = "meetSummary" type = "text" placeholder = "Enter a brief summary for this meeting."></textarea>
+        <input type = "date" value = "2022-01-01" id = "meetDate" required>
+        <input type = "time" value = "00:00" id = "meetTime" required>
+        <button id = "createMeetingBtn">Create Meeting</button>
+    </div>
+    <div id = "meetResult">
+
+    </div>
+</body>
+
+<script>
+    const meetLocation = document.getElementById("meetLocation");
+    const meetSummary = document.getElementById("meetSummary");
+    const meetDate = document.getElementById("meetDate");
+    const meetTime = document.getElementById("meetTime");
+    const createMeetingBtn = document.getElementById("createMeetingBtn");
+    const meetResult = document.getElementById("meetResult");
+
+    createMeetingBtn.addEventListener("click", async function(event) {
+        meetResult.innerText = "";
+        const locationInput = meetLocation.value;
+        const summaryInput = meetSummary.value;
+        const dateInput = meetDate.value;
+        const timeInput = meetTime.value;
+
+        const fullDate = new Date(dateInput + " " + timeInput);
+        const epochDate = fullDate.getTime() / 1000.0;
+
+        const meeting = {meetingId: 0, location: locationInput, date: epochDate, summary: summaryInput};
+
+        const response = await fetch("http://localhost:8080/meetings",{
+            method:"POST", 
+            body: JSON.stringify(meeting),
+            headers:{
+                "Content-Type":"application/json"
+            }
+        });
+
+        if(response.status === 201){
+            meetResult.innerText = "Successfully created meeting!";
+            meetLocation.value = "";
+            meetSummary.value = "";
+            meetDate.value = "2022-01-01";
+            meetTime.value = "00:00";
+        }else{
+            meetResult.innerText = "Something went wrong!";
+        }
+    });
+</script>
+</html>
