@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+</head>
+<body>
+    <h1>Register as a user for additional features!</h1>
+    <form>
+        <fieldset>
+        <div>
+            <div><label for = "usernameInput">Username</label></div>
+            <input id = "usernameInput" pattern=".{8,}" required title = "At least 8 characters" autocomplete="off">
+            <div><label for = "passwordInput">Password</label></div>
+            <input id = "passwordInput" pattern=".{5,}" required title = "At least 5 characters" autocomplete="off">
+        </div>
+        <div>
+            <button>Register</button>
+        </div>
+        </fieldset>
+    </form>
+    <div id = "regResult">
+
+    </div>
+</body>
+
+<script>
+    const usernameInput = document.getElementById("usernameInput");
+    const passwordInput = document.getElementById("passwordInput");
+    const regResult = document.getElementById("regResult");
+
+    document.addEventListener("submit", async function(event) {
+        event.preventDefault();
+
+        regResult.innerText = "";
+        const userValue = usernameInput.value;
+        const passValue = passwordInput.value;
+
+        const resident = {id:0, username:userValue, password:passValue, userType:"REGISTERED"};
+
+        const response = await fetch("http://localhost:8080/residents",{
+            method:"POST", 
+            body: JSON.stringify(resident),
+            headers:{
+                "Content-Type":"application/json"
+            }
+        });
+
+        if(response.status === 201){
+            regResult.innerText = "Successfully registered!";
+            usernameInput.value = "";
+            passwordInput.value = "";
+        }else{
+            regResult.innerText = "Username already exists, please use a different one.";
+        }
+    });
+
+</script>
+</html>

@@ -34,7 +34,8 @@
     </style>
 </head>
 <body>
-    <a href = "meetingspage.html">View All Meetings</a>>
+    <a href = "meetingspage.html">View All Meetings</a>
+    <a href = "registerpage.html">Register</a>
     <h1>Log Your Complaints Here!</h1>
     <div id = "compContainer">
         <textarea id = "compText" type = "text" placeholder = "Enter your complaint here"></textarea>
@@ -53,7 +54,7 @@
     submitCompBtn.addEventListener("click", async function(event) {
         compResult.innerText = "";
         const compValue = compText.value;
-        if(compValue == ""){
+        if(compValue === ""){
             compResult.innerText = "Please enter something!";
             return;
         }
@@ -70,11 +71,10 @@
 
         if(response.status === 201){
             compResult.innerText = "Successfully logged complaint!";
+            compText.value = "";
         }else{
             compResult.innerText = "Something went wrong!";
         }
-
-        compText.value = "";
     });
 </script>
 </html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <h2>Login</h2>
+    <form>
+        <fieldset>
+            <legend>Login</legend>
+
+            <label for = "usernameInput">Username</label>
+            <input id = "usernameInput" type = "text" placeholder = "username"/>
+
+            <label for = "passwordInput">Password</label>
+            <input id = "passwordInput" type = "password"/>
+
+            <button>Login</button>
+        </fieldset>
+    </form>
+</body>
+
+<script>
+    const usernameInput = document.getElementById("usernameInput");
+    const passwordInput = document.getElementById("passwordInput");
+
+    document.addEventListener("submit", async event => {
+        event.preventDefault();
+        
+        const username = usernameInput.value;
+        const password = passwordInput.value;
+        const credentials = {username, password};
+
+        const httpResponse = await fetch ("http://localhost:8080/login", {
+            method: "POST",
+            body: JSON.stringify(credentials),
+            headers: {
+                'Content-Type': "application/json"
+            }
+        })
+
+        if(httpResponse.status === 200){
+            const resident = await httpResponse.json();
+            alert("Login successful");
+            window.location = "landingpage.html";
+            //local storage can be used to cache information
+            resident.password = null;
+            localStorage.setItem("resident", JSON.stringify(resident));
+            localStorage.getItem("resident"); // retrieve item from local storage
+            localStorage.clear();
+        }
+
+        if(httpResponse.status === 404){
+            alert("Username not found");
+        }
+
+        if(httpResponse.status === 400){
+            alert("Password does not match");
+        }
+    });
+</script>
+</html>
