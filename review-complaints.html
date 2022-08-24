@@ -12,7 +12,7 @@
             <th>Description</th>
             <th>Priority</th>
             <th>Assign Priority</th>
-            <th>Assigned to Meeting?</th>
+            <th>Assign to Meeting</th>
         </tr>
 
     </table>
@@ -95,7 +95,34 @@
             });
 
             const complaintAssigned = document.createElement("td");
-            complaintAssigned.innerText = complaint.meetingId === -1 ? "No" : "Yes";
+            const dropList = document.createElement("select");
+            const response = await fetch("http://localhost:8080/meetings");
+            const meetings = await response.json();
+            for(let meeting of meetings){
+                if(meeting.meetingId === -1){
+                    continue;
+                }
+                const meetOption = document.createElement("option");
+                meetOption.innerText = meeting.meetingId;
+                meetOption.value = meeting.meetingId;
+                dropList.appendChild(meetOption);
+            }
+
+            const assignBtn = document.createElement("button");
+            assignBtn.innerText = "Assign";
+            assignBtn.addEventListener("click", async function(event) {
+                complaint.meetingId = dropList.value;
+                const response = await fetch(`http://localhost:8080/complaints/${complaint.complaintId}`,{
+                    method:"PUT", 
+                    body: JSON.stringify(complaint),
+                    headers:{
+                        "Content-Type":"application/json"
+                    }
+                });
+                alert('Assignment to meeting successful');
+            });
+            complaintAssigned.appendChild(dropList);
+            complaintAssigned.appendChild(assignBtn);
 
             complaintRow.appendChild(complaintDesc);
             complaintRow.appendChild(complaintPrio);
