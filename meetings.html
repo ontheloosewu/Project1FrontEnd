@@ -12,9 +12,11 @@
     <a href = "login.html">Login</a>
     <table id = "meetingTable">
         <tr>
+            <th>Meeting #</th>
             <th>Location</th>
             <th>Date</th>
             <th>Summary</th>
+            <th>Relevant Complaint(s)</th>
         </tr>
 
     </table>
@@ -29,14 +31,24 @@
         return meetings;
     }
 
+    async function getComplaints(){
+        const httpResponse = await fetch("http://localhost:8080/complaints");
+        const complaints = await httpResponse.json();
+        return complaints;
+    }
+
     async function renderMeetingTable(){
         const meetings = await getMeetings();
+        const complaints = await getComplaints();
 
         for (const meeting of meetings){
             if(meeting.meetingId < 0){
                 continue;
             }
             const meetingRow = document.createElement("tr");
+
+            const meetingNum = document.createElement("td");
+            meetingNum.innerText = meeting.meetingId;
 
             const meetingLocation = document.createElement("td");
             meetingLocation.innerText = meeting.location;
@@ -48,9 +60,24 @@
             const meetingSummary = document.createElement("td");
             meetingSummary.innerText = meeting.summary;
 
+            const meetingComplaint = document.createElement("td");
+            meetingComplaint.innerText = "N/A";
+            let resultText = "";
+            for (const complaint of complaints){
+                if(complaint.meetingId === meeting.meetingId){
+                    resultText += '- ' + complaint.compText + '\n';
+                }
+                
+            }
+            if(resultText.length > 0){
+                meetingComplaint.innerText = resultText;
+            }
+
+            meetingRow.appendChild(meetingNum);
             meetingRow.appendChild(meetingLocation);
             meetingRow.appendChild(meetingDate);
             meetingRow.appendChild(meetingSummary);
+            meetingRow.appendChild(meetingComplaint);
 
             meetingTable.appendChild(meetingRow);
         }

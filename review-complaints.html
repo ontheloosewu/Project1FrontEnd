@@ -119,10 +119,29 @@
                         "Content-Type":"application/json"
                     }
                 });
+                unassignBtn.disabled = false;
                 alert('Assignment to meeting successful');
+            });
+            const unassignBtn = document.createElement("button");
+            unassignBtn.innerText = "Unassign";
+            if(complaint.meetingId === -1){
+                unassignBtn.disabled = true;
+            }
+            unassignBtn.addEventListener("click", async function(event) {
+                complaint.meetingId = -1;
+                const response = await fetch(`http://localhost:8080/complaints/${complaint.complaintId}`,{
+                    method:"PUT", 
+                    body: JSON.stringify(complaint),
+                    headers:{
+                        "Content-Type":"application/json"
+                    }
+                });
+                unassignBtn.disabled = true;
+                alert('Unassigned');
             });
             complaintAssigned.appendChild(dropList);
             complaintAssigned.appendChild(assignBtn);
+            complaintAssigned.appendChild(unassignBtn);
 
             complaintRow.appendChild(complaintDesc);
             complaintRow.appendChild(complaintPrio);
