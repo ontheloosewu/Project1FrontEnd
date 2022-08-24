@@ -48,12 +48,13 @@
         if(httpResponse.status === 200){
             const resident = await httpResponse.json();
             alert("Login successful");
-            //window.location = "landingpage.html";
             //local storage can be used to cache information
             resident.password = null;
             localStorage.setItem("resident", JSON.stringify(resident));
-            localStorage.getItem("resident"); // retrieve item from local storage
-            localStorage.clear();
+            //localStorage.getItem("resident"); // retrieve item from local storage
+            //console.log(JSON.parse(localStorage.getItem('resident')).userType);
+            //localStorage.clear();
+            window.location = "lieutenant-access.html";
         }
 
         if(httpResponse.status === 404){
