@@ -6,18 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kamurocho</title>
     <style>
+        @font-face {
+            font-family: 'YakuzaFont';
+            src: url('edosz.ttf') format('truetype');
+        }
         body {
+            font-family: 'YakuzaFont', Fallback, sans-serif;
             display: flex;
             flex-direction: column;
-            align-items: center;
             background-image: url('landing-background.jpg');
             background-size: cover;
+            text-align: center;
+            margin: 0px;
+        }
+        a {
+            margin-right: 30px;
         }
         #compContainer {
             display: flex;
             align-items: center;
         }
         #compText {
+            font-family: 'YakuzaFont', Fallback, sans-serif;
             height: 300px;
             width: 500px;
             resize: none;
@@ -25,24 +35,35 @@
             padding: 10px;
         }
         #submitCompBtn {
+            font-family: 'YakuzaFont', Fallback, sans-serif;
+            font-size: larger;
             margin: 10px;
             padding: 10px;
         }
-        div {
-            margin-top: 20px;
+        #compResult {
+            align-self: center;
+            background-color: crimson;
+            border-radius: 5px;
+            padding: 5px;
+            margin-top: 10px;
+            font-size: large;
         }
     </style>
 </head>
 <body>
-    <a href = "meetings.html">View All Meetings</a>
-    <a href = "register.html">Register</a>
-    <a href = "login.html">Login</a>
-    <h1>Log Your Complaints Here!</h1>
-    <div id = "compContainer">
+    <div style = "background-color:darksalmon;">
+        <h2 style = "display: flex; justify-content: flex-end;">
+            <a href = "meetings.html">View All Meetings</a>
+            <a href = "register.html">Register</a>
+            <a href = "login.html">Login</a>
+        </h2>
+    </div>
+    <h1 style = "background-color: crimson; margin: 0; padding: 10px;">Log Your Complaints Here!</h1>
+    <div id = "compContainer" style = "display: flex; justify-content: center; margin-top: 350px;">
         <textarea id = "compText" type = "text" placeholder = "Enter your complaint here"></textarea>
         <button id = "submitCompBtn">Submit Your Complaint</button>
     </div>
-    <div id = "compResult">
+    <div id = "compResult" hidden = "hidden">
 
     </div>
 </body>
@@ -53,10 +74,11 @@
     const compResult = document.getElementById("compResult");
 
     submitCompBtn.addEventListener("click", async function(event) {
+        compResult.hidden = null;
         compResult.innerText = "";
         const compValue = compText.value;
-        if(compValue === ""){
-            compResult.innerText = "Please enter something!";
+        if(compValue.length < 10){
+            compResult.innerText = "Please enter something significant!";
             return;
         }
 
