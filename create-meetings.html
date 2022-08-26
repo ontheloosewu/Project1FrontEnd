@@ -5,15 +5,78 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create a Meeting</title>
+    <style>
+        @font-face {
+            font-family: 'YakuzaFont';
+            src: url('edosz.ttf') format('truetype');
+        }
+        body {
+            font-family: 'YakuzaFont', Fallback, sans-serif;
+            display: flex;
+            flex-direction: column;
+            background-image: url('create-meeting-background.jpg');
+            background-size: cover;
+            text-align: center;
+            margin: 0px;
+        }
+        a {
+            margin-right: 30px;
+        }
+        #meetContainer {
+            margin-top: 100px;
+            display: flex;
+            justify-content: center;
+            font-size: x-large;
+            align-items: center;
+            gap: 10px;
+            text-shadow: 0 0 1px white, 0 0 1px white, 0 0 1px white, 0 0 1px white;
+        }
+        #summaryContainer {
+            margin-top: 20px;
+            font-size: x-large;
+            text-shadow: 0 0 1px white, 0 0 1px white, 0 0 1px white, 0 0 1px white;
+        }
+        input {
+            padding: 10px;
+        }
+        textarea {
+            resize: none;
+            min-height: 200px;
+            min-width: 400px;
+        }
+        button {
+            font-family: 'YakuzaFont', Fallback, sans-serif;
+            padding: 10px;
+            font-size: x-large;
+        }
+    </style>
 </head>
 <body>
-    <h1>Create a Meeting!</h1>
+    <div style = "background-color:darksalmon;">
+        <h2 style = "display: flex; justify-content: flex-end;">
+            <a href = "lieutenant-access.html">Lieutenant HQ</a>
+            <a href = "review-complaints.html">Review Complaints</a>
+        </h2>
+    </div>
+    <h1 style = "background-color: crimson; margin: 0; padding: 10px;">Create a Meeting</h1>
     <div id = "meetContainer">
-        <input id = "meetLocation" type = "text" placeholder = "Enter the meeting place"/>
-        <textarea id = "meetSummary" type = "text" placeholder = "Enter a brief summary for this meeting."></textarea>
-        <input type = "date" value = "2022-01-01" id = "meetDate" required>
-        <input type = "time" value = "00:00" id = "meetTime" required>
-        <button id = "createMeetingBtn">Create Meeting</button>
+        <div>Meeting Place <br>
+            <input id = "meetLocation" type = "text" placeholder = "Location"/>
+        </div>
+        <div>Date <br>
+            <input type = "date" value = "2022-01-01" id = "meetDate" required>
+        </div>
+        <div>Time <br>
+            <input type = "time" value = "00:00" id = "meetTime" required>
+        </div>
+    </div>
+    <div id = "summaryContainer">
+        <div>Meeting Summary <br>
+            <textarea id = "meetSummary" type = "text" placeholder = "Enter a brief summary for this meeting."></textarea>
+        </div>
+        <div> <br>
+            <button id = "createMeetingBtn">Create Meeting</button>
+        </div>
     </div>
     <div id = "meetResult">
 

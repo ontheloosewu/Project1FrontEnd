@@ -5,24 +5,59 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
+    <style>
+        @font-face {
+            font-family: 'YakuzaFont';
+            src: url('edosz.ttf') format('truetype');
+        }
+        body {
+            font-family: 'YakuzaFont', Fallback, sans-serif;
+            display: flex;
+            flex-direction: column;
+            background-image: url('register-background.jpg');
+            background-size: cover;
+            text-align: center;
+            margin: 0px;
+        }
+        a {
+            margin-right: 30px;
+        }
+        form {
+            margin-top: 100px;
+        }
+        fieldset {
+            border: none;
+        }
+        input {
+            padding: 10px;
+        }
+        button {
+            margin: 25px;
+            padding: 10px;
+            font-size: large;
+            font-family: 'YakuzaFont', Fallback, sans-serif;
+        }
+    </style>
 </head>
 <body>
-    <a href = "landing.html">Home</a>
-    <a href = "meetings.html">View All Meetings</a>
-    <a href = "login.html">Login</a>
-    <h1>Register as a user for additional features!</h1>
+    <div style = "background-color:darksalmon;">
+        <h2 style = "display: flex; justify-content: flex-end;">
+            <a href = "landing.html">Submit a Complaint</a>
+            <a href = "meetings.html">View All Meetings</a>
+            <a href = "login.html">Login</a>
+        </h2>
+    </div>
+    <h1 style = "background-color: crimson; margin: 0; padding: 10px;">Register as a user for additional features!</h1>
     <form>
         <fieldset>
         <div>
-            <div><label for = "usernameInput">Username</label></div>
-            <input id = "usernameInput" pattern=".{8,}" required title = "At least 8 characters" autocomplete="off">
-            <div><label for = "passwordInput">Password</label></div>
-            <input id = "passwordInput" pattern=".{5,}" type = "password" required title = "At least 5 characters" autocomplete="off">
-        </div>
-        <div>
-            <button>Register</button>
+            <div style = "font-size: larger; margin-bottom: 5px; text-shadow: 0 0 1px black, 0 0 1px white, 0 0 1px white, 0 0 1px white;"><label for = "usernameInput">Username</label></div>
+            <input id = "usernameInput" pattern=".{5,}" required title = "At least 5 characters" autocomplete="off">
+            <div style = "font-size: larger; margin-bottom: 5px; margin-top: 20px; text-shadow: 0 0 1px black, 0 0 1px white, 0 0 1px white, 0 0 1px white;"><label for = "passwordInput">Password</label></div>
+            <input id = "passwordInput" pattern=".{8,}" type = "password" required title = "At least 8 characters" autocomplete="off">
         </div>
         </fieldset>
+        <button>Register</button>
     </form>
     <div id = "regResult">
 

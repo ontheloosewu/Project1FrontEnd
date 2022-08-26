@@ -5,9 +5,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Management</title>
+    <style>
+        @font-face {
+            font-family: 'YakuzaFont';
+            src: url('edosz.ttf') format('truetype');
+        }
+        body {
+            font-family: 'YakuzaFont', Fallback, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-image: url('lieutenant-background.jpg');
+            background-size: cover;
+            text-align: center;
+            margin: 0px;
+        }
+        a {
+            margin: 10px;
+        }
+    </style>
 </head>
 <body>
-    <a href = "review-complaints.html">Review Complaints</a>
-    <a href = "create-meetings.html">Create Meetings</a>
+    <h1 style = "background-color: crimson; margin: 0; padding: 10px;">Lieutenant HQ</h1>
+    <div style = "background-color:darksalmon; margin: auto; border-radius: 25px;">
+        <h2>
+            <a href = "review-complaints.html">Review Complaints</a>
+            <a href = "create-meetings.html">Create Meetings</a>
+        </h2>
+    </div>
 </body>
 </html>

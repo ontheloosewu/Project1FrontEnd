@@ -5,8 +5,44 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Complaints</title>
+    <style>
+        @font-face {
+            font-family: 'YakuzaFont';
+            src: url('edosz.ttf') format('truetype');
+        }
+        body {
+            font-family: 'YakuzaFont', Fallback, sans-serif;
+            display: flex;
+            flex-direction: column;
+            background-image: url('review-background.jpg');
+            background-size: cover;
+            text-align: center;
+            margin: 0px;
+        }
+        a {
+            margin-right: 30px;
+        }
+        table {
+            margin: 50px 300px;
+            border-style: double;
+            background-color:rgba(236, 222, 203, 0.829);
+        }
+        th, tr {
+            border-style: double;
+        }
+        td {
+            border-style: none none ridge none;
+        }
+    </style>
 </head>
 <body>
+    <div style = "background-color:darksalmon;">
+        <h2 style = "display: flex; justify-content: flex-end;">
+            <a href = "lieutenant-access.html">Lieutenant HQ</a>
+            <a href = "create-meetings.html">Create a Meeting</a>
+        </h2>
+    </div>
+    <h1 style = "background-color: crimson; margin: 0; padding: 10px;">Review Complaints</h1>
     <table id = "complaintTable">
         <tr>
             <th>Description</th>
@@ -14,7 +50,6 @@
             <th>Assign Priority</th>
             <th>Assign to Meeting</th>
         </tr>
-
     </table>
 </body>
 

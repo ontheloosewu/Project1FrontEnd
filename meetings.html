@@ -5,20 +5,53 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meetings</title>
+    <style>
+        @font-face {
+            font-family: 'YakuzaFont';
+            src: url('edosz.ttf') format('truetype');
+        }
+        body {
+            font-family: 'YakuzaFont', Fallback, sans-serif;
+            display: flex;
+            flex-direction: column;
+            background-image: url('meeting-background.jpg');
+            background-size: cover;
+            text-align: center;
+            margin: 0px;
+        }
+        a {
+            margin-right: 30px;
+        }
+        table {
+            margin: 50px 300px;
+            border-style: double;
+            background-color:rgba(236, 222, 203, 0.829);
+        }
+        th, tr {
+            border-style: double;
+        }
+        td {
+            border-style: none none ridge none;
+        }
+    </style>
 </head>
 <body>
-    <a href = "landing.html">Submit a Complaint</a>
-    <a href = "register.html">Register</a>
-    <a href = "login.html">Login</a>
+    <div style = "background-color:darksalmon;">
+        <h2 style = "display: flex; justify-content: flex-end;">
+            <a href = "landing.html">Submit a Complaint</a>
+            <a href = "register.html">Register</a>
+            <a href = "login.html">Login</a>
+        </h2>
+    </div>
+    <h1 style = "background-color: crimson; margin: 0; padding: 10px;">Meetings</h1>
     <table id = "meetingTable">
         <tr>
-            <th>Meeting #</th>
+            <th>Meeting Number</th>
             <th>Location</th>
             <th>Date</th>
             <th>Summary</th>
             <th>Relevant Complaint(s)</th>
         </tr>
-
     </table>
 </body>
 
