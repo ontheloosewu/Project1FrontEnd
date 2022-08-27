@@ -84,6 +84,10 @@
 </body>
 
 <script>
+    if(JSON.parse(localStorage.getItem('resident')) === null || JSON.parse(localStorage.getItem('resident')).userType !== 'LIEUTENANT'){
+        alert('You cannot view this page');
+        window.location = "landing.html";
+    }
     const meetLocation = document.getElementById("meetLocation");
     const meetSummary = document.getElementById("meetSummary");
     const meetDate = document.getElementById("meetDate");

@@ -23,6 +23,20 @@
         a {
             margin: 10px;
         }
+        table {
+            margin: 0;
+            border-style: double;
+            background-color:rgba(236, 222, 203, 0.829);
+        }
+        th, tr {
+            border-style: double;
+        }
+        td {
+            border-style: none none ridge none;
+        }
+        button {
+            margin: 5px;
+        }
     </style>
 </head>
 <body>
@@ -31,7 +45,70 @@
         <h2>
             <a href = "review-complaints.html">Review Complaints</a>
             <a href = "create-meetings.html">Create Meetings</a>
+            <a href = "meetings.html">View Meetings</a>
         </h2>
     </div>
+    <h1 style = "background-color: crimson; margin-top: 20px; padding: 10px;">Approve Registrations</h1>
+    <table id = "userTable">
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Status</th>
+        </tr>
+    </table>
 </body>
+
+<script>
+    if(JSON.parse(localStorage.getItem('resident')) === null || JSON.parse(localStorage.getItem('resident')).userType !== 'LIEUTENANT'){
+        alert('You cannot view this page');
+        window.location = "landing.html";
+    }
+    const userTable = document.getElementById("userTable");
+
+    async function getUsers(){
+        const httpResponse = await fetch("http://localhost:8080/users");
+        const users = await httpResponse.json();
+        return users;
+    }
+
+    async function renderUserTable(){
+        const users = await getUsers();
+
+        for (const user of users){
+            const userRow = document.createElement("tr");
+
+            const userId = document.createElement("td");
+            userId.innerText = user.id;
+
+            const userName = document.createElement("td");
+            userName.innerText = user.username;
+
+            const userType = document.createElement("td");
+            userType.innerText = user.userType;
+            if(user.userType === 'PENDING'){
+                const approveBtn = document.createElement("button");
+                approveBtn.innerText = "Approve";
+                approveBtn.addEventListener("click", async function(event) {
+                    userType.innerText = 'REGISTERED';
+                    user.userType = 'REGISTERED';
+                    const response = await fetch(`http://localhost:8080/register/${user.username}/approve`,{
+                        method:"PATCH", 
+                        headers:{
+                            "Content-Type":"application/json"
+                        }
+                    });
+                });
+                userType.appendChild(approveBtn);
+            }
+
+            userRow.appendChild(userId);
+            userRow.appendChild(userName);
+            userRow.appendChild(userType);
+
+            userTable.appendChild(userRow);
+        }
+    }
+
+    renderUserTable();
+</script>
 </html>

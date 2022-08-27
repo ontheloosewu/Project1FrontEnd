@@ -33,6 +33,11 @@
         td {
             border-style: none none ridge none;
         }
+        button {
+            font-family: 'YakuzaFont', Fallback, sans-serif;
+            padding: 5px;
+            font-size: large;
+        }
     </style>
 </head>
 <body>
@@ -54,6 +59,10 @@
 </body>
 
 <script>
+    if(JSON.parse(localStorage.getItem('resident')) === null || JSON.parse(localStorage.getItem('resident')).userType !== 'LIEUTENANT'){
+        alert('You cannot view this page');
+        window.location = "landing.html";
+    }
     const complaintTable = document.getElementById("complaintTable");
 
     async function getComplaints(){
@@ -133,15 +142,6 @@
             const dropList = document.createElement("select");
             const response = await fetch("http://localhost:8080/meetings");
             const meetings = await response.json();
-            for(let meeting of meetings){
-                if(meeting.meetingId === -1){
-                    continue;
-                }
-                const meetOption = document.createElement("option");
-                meetOption.innerText = meeting.meetingId;
-                meetOption.value = meeting.meetingId;
-                dropList.appendChild(meetOption);
-            }
 
             const assignBtn = document.createElement("button");
             assignBtn.innerText = "Assign";
@@ -174,6 +174,23 @@
                 unassignBtn.disabled = true;
                 alert('Unassigned');
             });
+
+            if(meetings.length === 1){
+                assignBtn.disabled = true;
+            }
+            else {
+                assignBtn.disabled = false;
+                for(let meeting of meetings){
+                    if(meeting.meetingId === -1){
+                        continue;
+                    }
+                    const meetOption = document.createElement("option");
+                    meetOption.innerText = meeting.meetingId;
+                    meetOption.value = meeting.meetingId;
+                    dropList.appendChild(meetOption);
+                }
+            }
+
             complaintAssigned.appendChild(dropList);
             complaintAssigned.appendChild(assignBtn);
             complaintAssigned.appendChild(unassignBtn);

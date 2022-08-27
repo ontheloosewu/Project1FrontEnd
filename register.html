@@ -76,7 +76,7 @@
         const userValue = usernameInput.value;
         const passValue = passwordInput.value;
 
-        const resident = {id:0, username:userValue, password:passValue, userType:"REGISTERED"};
+        const resident = {id:0, username:userValue, password:passValue, userType:"PENDING"};
 
         const response = await fetch("http://localhost:8080/register",{
             method:"POST", 
@@ -87,12 +87,13 @@
         });
 
         if(response.status === 201){
-            regResult.innerText = "Successfully registered!";
-            usernameInput.value = "";
-            passwordInput.value = "";
-        }else{
-            regResult.innerText = "Something went wrong.";
+            regResult.innerText = "Registration request sent for approval!";
         }
+        if(response.status === 409){
+            regResult.innerText = "Username already exists, please use a different one.";
+        }
+        usernameInput.value = "";
+        passwordInput.value = "";
     });
 
 </script>
