@@ -59,13 +59,13 @@
     const meetingTable = document.getElementById("meetingTable");
 
     async function getMeetings(){
-        const httpResponse = await fetch("http://localhost:8080/meetings");
+        const httpResponse = await fetch("https://kamurocho-app.agreeablemushroom-6e40775d.eastus.azurecontainerapps.io/meetings");
         const meetings = await httpResponse.json();
         return meetings;
     }
 
     async function getComplaints(){
-        const httpResponse = await fetch("http://localhost:8080/complaints");
+        const httpResponse = await fetch("https://kamurocho-app.agreeablemushroom-6e40775d.eastus.azurecontainerapps.io/complaints");
         const complaints = await httpResponse.json();
         return complaints;
     }

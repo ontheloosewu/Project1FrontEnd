@@ -103,7 +103,7 @@
 
         const meeting = {meetingId: 0, location: locationInput, date: epochDate, summary: summaryInput};
 
-        const response = await fetch("http://localhost:8080/meetings",{
+        const response = await fetch("https://kamurocho-app.agreeablemushroom-6e40775d.eastus.azurecontainerapps.io/meetings",{
             method:"POST", 
             body: JSON.stringify(meeting),
             headers:{

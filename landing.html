@@ -84,7 +84,7 @@
 
         const complaint = {complaintId: 0, compText: compValue, priority:"UNREVIEWED", meetingId: -1};
 
-        const response = await fetch("http://localhost:8080/complaints",{
+        const response = await fetch("https://kamurocho-app.agreeablemushroom-6e40775d.eastus.azurecontainerapps.io/complaints",{
             method:"POST", 
             body: JSON.stringify(complaint),
             headers:{

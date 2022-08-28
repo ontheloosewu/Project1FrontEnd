@@ -62,7 +62,7 @@
     const complaintTable = document.getElementById("complaintTable");
 
     async function getComplaints(){
-        const httpResponse = await fetch("http://localhost:8080/complaints");
+        const httpResponse = await fetch("https://kamurocho-app.agreeablemushroom-6e40775d.eastus.azurecontainerapps.io/complaints");
         const complaints = await httpResponse.json();
         return complaints;
     }
@@ -97,7 +97,7 @@
                 highBtn.disabled = false;
                 complaintPrio.innerText = "IGNORED";
                 complaint.priority = "IGNORED";
-                const response = await fetch(`http://localhost:8080/complaints/${complaint.complaintId}`,{
+                const response = await fetch(`https://kamurocho-app.agreeablemushroom-6e40775d.eastus.azurecontainerapps.io/complaints/${complaint.complaintId}`,{
                     method:"PUT", 
                     body: JSON.stringify(complaint),
                     headers:{
@@ -111,7 +111,7 @@
                 highBtn.disabled = false;
                 complaintPrio.innerText = "LOW";
                 complaint.priority = "LOW";
-                const response = await fetch(`http://localhost:8080/complaints/${complaint.complaintId}`,{
+                const response = await fetch(`https://kamurocho-app.agreeablemushroom-6e40775d.eastus.azurecontainerapps.io/complaints/${complaint.complaintId}`,{
                     method:"PUT", 
                     body: JSON.stringify(complaint),
                     headers:{
@@ -125,7 +125,7 @@
                 highBtn.disabled = true;
                 complaintPrio.innerText = "HIGH";
                 complaint.priority = "HIGH";
-                const response = await fetch(`http://localhost:8080/complaints/${complaint.complaintId}`,{
+                const response = await fetch(`https://kamurocho-app.agreeablemushroom-6e40775d.eastus.azurecontainerapps.io/complaints/${complaint.complaintId}`,{
                     method:"PUT", 
                     body: JSON.stringify(complaint),
                     headers:{
@@ -136,14 +136,14 @@
 
             const complaintAssigned = document.createElement("td");
             const dropList = document.createElement("select");
-            const response = await fetch("http://localhost:8080/meetings");
+            const response = await fetch("https://kamurocho-app.agreeablemushroom-6e40775d.eastus.azurecontainerapps.io/meetings");
             const meetings = await response.json();
 
             const assignBtn = document.createElement("button");
             assignBtn.innerText = "Assign";
             assignBtn.addEventListener("click", async function(event) {
                 complaint.meetingId = dropList.value;
-                const response = await fetch(`http://localhost:8080/complaints/${complaint.complaintId}`,{
+                const response = await fetch(`https://kamurocho-app.agreeablemushroom-6e40775d.eastus.azurecontainerapps.io/complaints/${complaint.complaintId}`,{
                     method:"PUT", 
                     body: JSON.stringify(complaint),
                     headers:{
@@ -160,7 +160,7 @@
             }
             unassignBtn.addEventListener("click", async function(event) {
                 complaint.meetingId = -1;
-                const response = await fetch(`http://localhost:8080/complaints/${complaint.complaintId}`,{
+                const response = await fetch(`https://kamurocho-app.agreeablemushroom-6e40775d.eastus.azurecontainerapps.io/complaints/${complaint.complaintId}`,{
                     method:"PUT", 
                     body: JSON.stringify(complaint),
                     headers:{

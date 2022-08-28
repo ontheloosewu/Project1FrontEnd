@@ -78,7 +78,7 @@
 
         const resident = {id:0, username:userValue, password:passValue, userType:"PENDING"};
 
-        const response = await fetch("http://localhost:8080/register",{
+        const response = await fetch("https://kamurocho-app.agreeablemushroom-6e40775d.eastus.azurecontainerapps.io/register",{
             method:"POST", 
             body: JSON.stringify(resident),
             headers:{
